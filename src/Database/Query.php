@@ -474,7 +474,7 @@ class Query implements ExpressionInterface, IteratorAggregate
      * @param bool $overwrite whether to reset fields with passed list or not
      * @return $this
      */
-    public function select($fields = [], bool $overwrite = false)
+    public function select(ExpressionInterface|callable|array|string $fields = [], bool $overwrite = false)
     {
         if (!is_string($fields) && is_callable($fields)) {
             $fields = $fields($this);
@@ -1271,7 +1271,7 @@ class Query implements ExpressionInterface, IteratorAggregate
      * @param bool $overwrite whether to reset order with field list or not
      * @return $this
      */
-    public function order($fields, $overwrite = false)
+    public function order(ExpressionInterface|Closure|array|string $fields, bool $overwrite = false)
     {
         if ($overwrite) {
             $this->_parts['order'] = null;
@@ -1526,7 +1526,7 @@ class Query implements ExpressionInterface, IteratorAggregate
      * @param \Cake\Database\ExpressionInterface|int|null $num number of records to be returned
      * @return $this
      */
-    public function limit($num)
+    public function limit(ExpressionInterface|int|null $num)
     {
         $this->_dirty();
         $this->_parts['limit'] = $num;
@@ -1552,7 +1552,7 @@ class Query implements ExpressionInterface, IteratorAggregate
      * @param \Cake\Database\ExpressionInterface|int|null $num number of records to be skipped
      * @return $this
      */
-    public function offset($num)
+    public function offset(ExpressionInterface|int|null $num)
     {
         $this->_dirty();
         $this->_parts['offset'] = $num;

@@ -188,8 +188,10 @@ class Query extends DatabaseQuery implements JsonSerializable, QueryInterface
      * @param bool $overwrite whether to reset fields with passed list or not
      * @return $this
      */
-    public function select($fields = [], bool $overwrite = false)
-    {
+    public function select(
+        ExpressionInterface|Table|Association|callable|array|string $fields = [],
+        bool $overwrite = false
+    ) {
         if ($fields instanceof Association) {
             $fields = $fields->getTarget();
         }
@@ -1200,7 +1202,7 @@ class Query extends DatabaseQuery implements JsonSerializable, QueryInterface
      * @return static Returns a modified query.
      * @psalm-suppress MoreSpecificReturnType
      */
-    public function find(string $finder, array $options = [])
+    public function find(string $finder, array $options = []): static
     {
         $table = $this->getRepository();
 
